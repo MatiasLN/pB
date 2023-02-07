@@ -1,0 +1,41 @@
+:root {
+	--green: #1b998b;
+	--white: #ffffff;
+	--red: #c42f2f;
+	--black: #000000;
+	--background: #f7bb90;
+	--m: 8px;
+	--p: 8px;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	font-family: "Montserrat";
+	font-weight: 300;
+	color: var(--black);
+}
+
+a {
+	text-decoration: none;
+	padding-bottom: var(--p);
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.container {
+	margin: var(--m);
+	display: flex;
+	flex-direction: column;
+}

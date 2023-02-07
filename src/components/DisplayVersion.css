@@ -1,0 +1,6 @@
+#version {
+	position: absolute;
+	top: 0;
+	padding: var(--p);
+	font-size: 10px;
+}

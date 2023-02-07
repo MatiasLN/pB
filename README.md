@@ -1,2 +1,3 @@
 # pB
- A utiilty for backing up a Plex server
+
+A GUI program for backing up a Plex server

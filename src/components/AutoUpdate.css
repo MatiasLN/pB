@@ -1,0 +1,7 @@
+.updateAvailable {
+	font-size: 10px;
+	position: absolute;
+	padding: var(--p);
+	top: 0;
+	right: 0;
+}
