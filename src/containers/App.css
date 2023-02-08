@@ -25,6 +25,28 @@ body {
 	color: var(--black);
 }
 
+button,
+.button {
+	display: inline-block;
+	padding: var(--p);
+	margin: 0;
+	text-decoration: none;
+	background: transparent;
+	color: var(--green);
+	border: 2px solid var(--green);
+	cursor: pointer;
+	text-align: center;
+	transition: 250ms ease-in-out, transform 150ms ease;
+	font-size: 20px;
+}
+
+button:hover,
+.button:hover {
+	background: var(--green);
+	color: var(--white);
+	border: 2px solid var(--green);
+}
+
 a {
 	text-decoration: none;
 	padding-bottom: var(--p);
