@@ -41,8 +41,13 @@ function setOutputPath() {
 }
 
 // Handle start of backup
-function startBackup() {
-	ipcRenderer.send("startBackup");
+function startBackup(initBackup) {
+	ipcRenderer.send("startBackup", initBackup);
+}
+
+// Handle copy of regkey
+function copyRegKey(outputPath) {
+	ipcRenderer.send("copyRegKey", outputPath);
 }
 
 module.exports = {
@@ -54,4 +59,5 @@ module.exports = {
 	setPlexPath,
 	setOutputPath,
 	startBackup,
+	copyRegKey,
 };

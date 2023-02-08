@@ -4,6 +4,8 @@
 const { app, ipcMain, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
+const fs = require("fs");
+const { exec } = require("child_process");
 const { autoUpdater } = require("electron-updater");
 
 const {
@@ -13,7 +15,6 @@ const {
 	SAVE_DATA_IN_STORAGE,
 	REMOVE_DATA_FROM_STORAGE,
 	HANDLE_REMOVE_DATA,
-	HANDLE_PLEX_DIRECTORY,
 } = require("./src/utils/constants");
 const storage = require("electron-json-storage");
 
@@ -200,11 +201,61 @@ ipcMain.on("outputPath", () => {
 // HANDLE BACKUP
 // -----------------------------------------------------------------------
 
-ipcMain.on("startBackup", () => {
-	console.log("Main recieved: start backup");
-	mainWindow.send("startBackup", {
-		success: true,
-	});
+ipcMain.on("startBackup", (event, initBackup) => {
+	console.log(initBackup);
+	if (initBackup) {
+		console.log("Main recieved: start backup");
+		mainWindow.send("startBackup", {
+			success: true,
+		});
+	} else {
+		console.log("Main recieved: stop backup");
+		mainWindow.send("startBackup", {
+			success: false,
+		});
+	}
+});
+
+// -----------------------------------------------------------------------
+// HANDLE REGKEY
+// -----------------------------------------------------------------------
+
+ipcMain.on("copyRegKey", (event, outputPath) => {
+	console.log("Main recieved: copyRegKey");
+	if (fs.existsSync(outputPath + "\\export.reg")) {
+		setTimeout(() => {
+			mainWindow.send("copyRegKey", {
+				success: true,
+				statusMessage: "Registry file already exists",
+			});
+		}, 2000);
+	} else {
+		exec(
+			`REG EXPORT "HKEY_CURRENT_USER\\Software\\Plex, Inc.\\Plex Media Server" ${outputPath}\\export.reg`,
+			(error, stdout, stderr) => {
+				if (error) {
+					console.log(`error: ${error.message}`);
+					mainWindow.send("copyRegKey", {
+						error: true,
+						errorMsg: error.message,
+					});
+					return;
+				}
+				if (stderr) {
+					ipcRenderer.send("copyRegKey", stderr);
+					return;
+				}
+				if (stdout) {
+					setTimeout(() => {
+						mainWindow.send("copyRegKey", {
+							success: true,
+							statusMessage: "Copy of registry file complete",
+						});
+					}, 2000);
+				}
+			}
+		);
+	}
 });
 
 // -----------------------------------------------------------------------

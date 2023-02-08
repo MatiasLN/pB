@@ -5,7 +5,7 @@ import DisplayVersion from "./DisplayVersion";
 import AutoUpdate from "./AutoUpdate";
 import PlexPath from "./PlexPath";
 import OutputPath from "./OutputPath";
-import CopyRegFile from "./CopyRegFile";
+import RegKey from "./RegKey";
 
 const { ipcRenderer } = require("electron");
 
@@ -24,7 +24,7 @@ function Home() {
 			setOutputPath(arg.success);
 		});
 		ipcRenderer.on("startBackup", (event, arg) => {
-			ipcRenderer.removeAllListeners("outputPath");
+			ipcRenderer.removeAllListeners("startBackup");
 			setInitBackup(arg.success);
 		});
 	});
@@ -42,9 +42,11 @@ function Home() {
 				{plexPath && outputPath && (
 					<section className="backup">
 						<div className="buttonGroup">
-							<button onClick={() => startBackup()}>Start backup</button>
+							<button onClick={() => startBackup(!initBackup)}>
+								{initBackup ? "Stop backup" : "Start backup"}
+							</button>
 						</div>
-						{initBackup && <div>Regkey component</div>}
+						{initBackup && <RegKey outputPath={outputPath} />}
 					</section>
 				)}
 			</div>
