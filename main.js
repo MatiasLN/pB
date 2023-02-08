@@ -7,6 +7,7 @@ const url = require("url");
 const fs = require("fs");
 const { exec } = require("child_process");
 const { autoUpdater } = require("electron-updater");
+const ps = require("ps-man");
 
 const {
 	HANDLE_FETCH_DATA,
@@ -256,6 +257,53 @@ ipcMain.on("copyRegKey", (event, outputPath) => {
 			}
 		);
 	}
+});
+
+// -----------------------------------------------------------------------
+// KILL PLEX PROCESS
+// -----------------------------------------------------------------------
+
+ipcMain.on("killPlexProcess", () => {
+	console.log("Main recieved: killPlexProcess");
+
+	let options = {
+		name: "Plex Media Server",
+	};
+
+	ps.list(options, function (error, result) {
+		if (result[0] === undefined) {
+			mainWindow.send("killPlexProcess", {
+				success: true,
+				statusMessage: "Plex is not runnng",
+			});
+		} else if (result[0].command === "Plex Media Server.exe") {
+			mainWindow.send("killPlexProcess", {
+				success: true,
+				statusMessage: "Stopped Plex Media Server",
+			});
+			ps.kill([result[0].pid], function (error) {
+				mainWindow.send("killPlexProcess", {
+					success: true,
+					statusMessage: "Stopped Plex Media Server",
+				});
+				if (error) {
+					console.log(`error: ${error}`);
+					mainWindow.send("killPlexProcess", {
+						error: true,
+						errorMsg: error,
+					});
+				}
+			});
+		}
+
+		if (error) {
+			console.log(`error: ${error}`);
+			mainWindow.send("killPlexProcess", {
+				error: true,
+				errorMsg: error,
+			});
+		}
+	});
 });
 
 // -----------------------------------------------------------------------
