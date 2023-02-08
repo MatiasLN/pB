@@ -6,6 +6,7 @@
 	--background: #f7bb90;
 	--m: 8px;
 	--p: 8px;
+	--base: 8px;
 }
 
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
@@ -60,4 +61,26 @@ a:hover {
 	margin: var(--m);
 	display: flex;
 	flex-direction: column;
+}
+
+.block {
+	display: grid;
+	grid-template-columns: 90px 1fr;
+	align-items: center;
+	margin-top: calc(var(--base) * 8);
+}
+
+.block .image {
+	width: 75px;
+	height: 75px;
+	border-radius: 50%;
+	background-color: bisque;
+	margin-right: vr(0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.block .error .image {
+	background-color: red;
 }
