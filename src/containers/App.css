@@ -33,6 +33,7 @@ button,
 	margin: 0;
 	text-decoration: none;
 	background: transparent;
+	outline: none;
 	color: var(--green);
 	border: 2px solid var(--green);
 	cursor: pointer;
@@ -81,6 +82,10 @@ a:hover {
 	justify-content: center;
 }
 
-.block .error .image {
-	background-color: red;
+.error .image {
+	background-color: var(--red);
+}
+
+.block .success {
+	background-color: var(--green);
 }

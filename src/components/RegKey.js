@@ -32,7 +32,7 @@ function RegKey({ outputPath }) {
 
 			{statusMsg && (
 				<div className="block">
-					<div className={complete ? "image" : "image success"}></div>
+					<div className={complete ? "image success" : "image"}></div>
 					<div className="status">{statusMsg}</div>
 					<div className="progressBar"></div>
 				</div>
