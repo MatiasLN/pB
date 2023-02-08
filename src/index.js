@@ -4,6 +4,7 @@ import App from "./containers/App";
 
 // Import CSS
 import "./containers/App.css";
+import "./components/Home.css";
 import "./components/AutoUpdate.css";
 import "./components/DisplayVersion.css";
 import "./components/PlexPath.css";

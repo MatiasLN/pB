@@ -40,6 +40,11 @@ function setOutputPath() {
 	ipcRenderer.send("outputPath");
 }
 
+// Handle start of backup
+function startBackup() {
+	ipcRenderer.send("startBackup");
+}
+
 module.exports = {
 	loadSavedData,
 	saveDataInStorage,
@@ -48,4 +53,5 @@ module.exports = {
 	appVersion,
 	setPlexPath,
 	setOutputPath,
+	startBackup,
 };

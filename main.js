@@ -180,6 +180,10 @@ ipcMain.on(REMOVE_DATA_FROM_STORAGE, (event, message) => {
 	});
 });
 
+// -----------------------------------------------------------------------
+// PLEX & OUTPUT PATHS
+// -----------------------------------------------------------------------
+
 ipcMain.on("plexPath", () => {
 	console.log("Main recieved: plexPath");
 	mainWindow.send("plexPath", {
@@ -190,6 +194,17 @@ ipcMain.on("plexPath", () => {
 ipcMain.on("outputPath", () => {
 	console.log("Main recieved: outputPath");
 	mainWindow.send("outputPath", {
+		success: true,
+	});
+});
+
+// -----------------------------------------------------------------------
+// HANDLE BACKUP
+// -----------------------------------------------------------------------
+
+ipcMain.on("startBackup", () => {
+	console.log("Main recieved: start backup");
+	mainWindow.send("startBackup", {
 		success: true,
 	});
 });
