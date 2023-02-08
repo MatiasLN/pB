@@ -50,6 +50,11 @@ function copyRegKey(outputPath) {
 	ipcRenderer.send("copyRegKey", outputPath);
 }
 
+// Handle killing of plex process
+function killPlexProcess() {
+	ipcRenderer.send("killPlexProcess");
+}
+
 module.exports = {
 	loadSavedData,
 	saveDataInStorage,
@@ -60,4 +65,5 @@ module.exports = {
 	setOutputPath,
 	startBackup,
 	copyRegKey,
+	killPlexProcess,
 };

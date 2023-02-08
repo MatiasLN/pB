@@ -6,6 +6,7 @@ import AutoUpdate from "./AutoUpdate";
 import PlexPath from "./PlexPath";
 import OutputPath from "./OutputPath";
 import RegKey from "./RegKey";
+import KillProcess from "./KillProcess";
 
 const { ipcRenderer } = require("electron");
 
@@ -13,6 +14,8 @@ function Home() {
 	const [plexPath, setPlexPath] = useState(localStorage.getItem("plexPath"));
 	const [outputPath, setOutputPath] = useState(localStorage.getItem("outputPath"));
 	const [initBackup, setInitBackup] = useState(false);
+	const [regKey, setRegKey] = useState(false);
+	const [killProcess, setKillProcess] = useState(false);
 
 	useEffect(() => {
 		ipcRenderer.on("plexPath", (event, arg) => {
@@ -26,6 +29,14 @@ function Home() {
 		ipcRenderer.on("startBackup", (event, arg) => {
 			ipcRenderer.removeAllListeners("startBackup");
 			setInitBackup(arg.success);
+		});
+		ipcRenderer.on("copyRegKey", (event, arg) => {
+			ipcRenderer.removeAllListeners("copyRegKey");
+			setRegKey(arg.success);
+		});
+		ipcRenderer.on("killPlexProcess", (event, arg) => {
+			ipcRenderer.removeAllListeners("killPlexProcess");
+			setKillProcess(arg.success);
 		});
 	});
 
@@ -47,6 +58,8 @@ function Home() {
 							</button>
 						</div>
 						{initBackup && <RegKey outputPath={outputPath} />}
+						{initBackup && regKey && <KillProcess />}
+						{initBackup && killProcess && <div>Next module</div>}
 					</section>
 				)}
 			</div>
