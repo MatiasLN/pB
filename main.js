@@ -307,6 +307,26 @@ ipcMain.on("killPlexProcess", () => {
 });
 
 // -----------------------------------------------------------------------
+// HANDLE COMPRESSION
+// -----------------------------------------------------------------------
+
+ipcMain.on("compressToRar", () => {
+	console.log("starting compression");
+	mainWindow.send("compressToRar", {
+		success: true,
+		statusMessage: "Compressing files to RAR",
+	});
+});
+
+ipcMain.on("compressionComplete", () => {
+	console.log("compression complete");
+	mainWindow.send("compressionComplete", {
+		success: true,
+		statusMessage: "Complete!",
+	});
+});
+
+// -----------------------------------------------------------------------
 // VERSION & AUTO UPDATE
 // -----------------------------------------------------------------------
 
