@@ -312,17 +312,27 @@ ipcMain.on("killPlexProcess", () => {
 
 ipcMain.on("compressToRar", () => {
 	console.log("starting compression");
-	mainWindow.send("compressToRar", {
-		success: true,
-		statusMessage: "Compressing files to RAR",
-	});
+
+	if (isDev) {
+		mainWindow.send("compressToRar", {
+			success: true,
+			rarPath: app.getAppPath() + "\\assets\\exe",
+			statusMessage: "Compressing files to RAR",
+		});
+	} else {
+		mainWindow.send("compressToRar", {
+			success: true,
+			rarPath: app.getAppPath("exe").replace("pB.exe", "") + "\\resources\\assets",
+			statusMessage: "Compressing files to RAR",
+		});
+	}
 });
 
 ipcMain.on("compressionComplete", () => {
 	console.log("compression complete");
 	mainWindow.send("compressionComplete", {
 		success: true,
-		statusMessage: "Complete!",
+		statusMessage: "Compression complete",
 	});
 });
 

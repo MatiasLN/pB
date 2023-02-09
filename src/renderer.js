@@ -55,6 +55,14 @@ function killPlexProcess() {
 	ipcRenderer.send("killPlexProcess");
 }
 
+function compressToRar() {
+	ipcRenderer.send("compressToRar");
+}
+
+function compressionComplete() {
+	ipcRenderer.send("compressionComplete");
+}
+
 module.exports = {
 	loadSavedData,
 	saveDataInStorage,
@@ -66,4 +74,6 @@ module.exports = {
 	startBackup,
 	copyRegKey,
 	killPlexProcess,
+	compressToRar,
+	compressionComplete,
 };
