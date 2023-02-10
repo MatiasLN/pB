@@ -22,6 +22,8 @@ const storage = require("electron-json-storage");
 let mainWindow;
 let itemsToStore;
 let isDev = false;
+// Removing 8 characters to remove "app.asar"
+let strippedPath = __dirname.substring(0, __dirname.length - 8);
 
 if (process.env.NODE_ENV !== undefined && process.env.NODE_ENV === "development") {
 	isDev = true;
@@ -312,9 +314,11 @@ ipcMain.on("compressToRar", () => {
 			statusMessage: "Compressing files to RAR",
 		});
 	} else {
+		let rarPath = "" + strippedPath + `assets\\exe\\` + "";
+
 		mainWindow.send("compressToRar", {
 			success: true,
-			rarPath: app.getAppPath("exe").replace("pB.exe", "") + "\\resources\\assets",
+			rarPath: rarPath,
 			statusMessage: "Compressing files to RAR",
 		});
 	}
