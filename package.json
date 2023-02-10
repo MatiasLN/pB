@@ -34,7 +34,7 @@
 				"provider": "github",
 				"repo": "pB",
 				"owner": "MatiasLN",
-				"releaseType": "draft"
+				"releaseType": "release"
 			}
 		},
 		"publish": {
