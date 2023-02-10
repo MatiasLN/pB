@@ -203,18 +203,10 @@ ipcMain.on("outputPath", () => {
 // -----------------------------------------------------------------------
 
 ipcMain.on("startBackup", (event, initBackup) => {
-	console.log(initBackup);
-	if (initBackup) {
-		console.log("Main recieved: start backup");
-		mainWindow.send("startBackup", {
-			success: true,
-		});
-	} else {
-		console.log("Main recieved: stop backup");
-		mainWindow.send("startBackup", {
-			success: false,
-		});
-	}
+	console.log("Main recieved: start backup");
+	mainWindow.send("startBackup", {
+		success: true,
+	});
 });
 
 // -----------------------------------------------------------------------
