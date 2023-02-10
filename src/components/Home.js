@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { startBackup } from "../renderer";
 
 import DisplayVersion from "./DisplayVersion";
 import AutoUpdate from "./AutoUpdate";
@@ -18,6 +17,16 @@ function Home() {
 	const [regKey, setRegKey] = useState(false);
 	const [killProcess, setKillProcess] = useState(false);
 	const [compressionComplete, setCompressionComplete] = useState(false);
+	const [backupRunning, setBackupRunning] = useState(false);
+
+	function startBackup() {
+		setBackupRunning(true);
+		setInitBackup(true);
+	}
+
+	function newBackup() {
+		window.location.reload(false);
+	}
 
 	useEffect(() => {
 		ipcRenderer.on("plexPath", (event, arg) => {
@@ -43,8 +52,16 @@ function Home() {
 		ipcRenderer.on("compressionComplete", (event, arg) => {
 			ipcRenderer.removeAllListeners("compressionComplete");
 			setCompressionComplete(arg.success);
+			setBackupRunning(false);
 		});
 	});
+
+	useEffect(() => {
+		if (localStorage.getItem("newBackup") === "true") {
+			startBackup();
+			localStorage.setItem("newBackup", false);
+		}
+	}, []);
 
 	return (
 		<>
@@ -59,14 +76,20 @@ function Home() {
 				{plexPath && outputPath && (
 					<section className="backup">
 						<div className="buttonGroup">
-							<button onClick={() => startBackup(!initBackup)}>
-								{initBackup ? "Stop backup" : "Start backup"}
-							</button>
+							{backupRunning ? (
+								<div>Backup is running</div>
+							) : compressionComplete ? (
+								<button onClick={() => newBackup() + localStorage.setItem("newBackup", true)}>
+									Start new backup
+								</button>
+							) : (
+								<button onClick={() => startBackup(true)}>Start backup</button>
+							)}
 						</div>
 						{initBackup && <RegKey outputPath={outputPath} />}
-						{initBackup && regKey && <KillProcess />}
-						{initBackup && killProcess && <CompressDirectory />}
-						{initBackup && compressionComplete && <div>Next module</div>}
+						{regKey && <KillProcess />}
+						{killProcess && <CompressDirectory />}
+						{compressionComplete && <div>New module</div>}
 					</section>
 				)}
 			</div>
