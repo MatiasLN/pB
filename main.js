@@ -226,7 +226,7 @@ ipcMain.on("copyRegKey", (event, outputPath) => {
 		}, 2000);
 	} else {
 		exec(
-			`REG EXPORT "HKEY_CURRENT_USER\\Software\\Plex, Inc.\\Plex Media Server\\${outputPath}\\export.reg`,
+			`REG EXPORT "HKEY_CURRENT_USER\\Software\\Plex, Inc.\\Plex Media Server" ${outputPath}\\export.reg`,
 			(error, stdout, stderr) => {
 				if (error) {
 					console.log(`error: ${error.message}`);
