@@ -46,7 +46,8 @@ function startBackup(initBackup) {
 }
 
 // Handle copy of regkey
-function copyRegKey(outputPath) {
+function copyRegKey() {
+	const outputPath = localStorage.getItem("outputPath");
 	ipcRenderer.send("copyRegKey", outputPath);
 }
 

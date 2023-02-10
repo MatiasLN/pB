@@ -3,14 +3,14 @@ import { copyRegKey } from "../renderer";
 
 const { ipcRenderer } = require("electron");
 
-function RegKey({ outputPath }) {
+function RegKey() {
 	const [complete, setComplete] = useState(false);
 	const [error, setError] = useState(null);
 	const [statusMsg, setStatusMsg] = useState("Initiating copy of settings file");
 	const [errorMsg, setErrorMsg] = useState(null);
 
 	useEffect(() => {
-		copyRegKey(outputPath);
+		copyRegKey();
 		ipcRenderer.on("copyRegKey", (event, arg) => {
 			ipcRenderer.removeAllListeners("copyRegKey");
 			setComplete(arg.success);
