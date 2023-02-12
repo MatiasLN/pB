@@ -5,7 +5,7 @@ const { app, ipcMain, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
-const { exec } = require("child_process");
+const { exec, spawn } = require("child_process");
 const { autoUpdater } = require("electron-updater");
 const ps = require("ps-man");
 
@@ -232,12 +232,16 @@ ipcMain.on("copyRegKey", (event, outputPath) => {
 					console.log(`error: ${error.message}`);
 					mainWindow.send("copyRegKey", {
 						error: true,
-						errorMsg: error.message,
+						errorMessage: error.message,
 					});
 					return;
 				}
 				if (stderr) {
-					ipcRenderer.send("copyRegKey", stderr);
+					console.log(`error: ${error.message}`);
+					mainWindow.send("copyRegKey", {
+						error: true,
+						errorMessage: stderr,
+					});
 					return;
 				}
 				if (stdout) {
@@ -284,7 +288,7 @@ ipcMain.on("killPlexProcess", () => {
 					console.log(`error: ${error}`);
 					mainWindow.send("killPlexProcess", {
 						error: true,
-						errorMsg: error,
+						errorMessage: error,
 					});
 				}
 			});
@@ -294,7 +298,7 @@ ipcMain.on("killPlexProcess", () => {
 			console.log(`error: ${error}`);
 			mainWindow.send("killPlexProcess", {
 				error: true,
-				errorMsg: error,
+				errorMessage: error,
 			});
 		}
 	});
@@ -315,7 +319,6 @@ ipcMain.on("compressToRar", () => {
 		});
 	} else {
 		let rarPath = "" + strippedPath + `assets\\exe\\` + "";
-
 		mainWindow.send("compressToRar", {
 			success: true,
 			rarPath: rarPath,
@@ -330,6 +333,29 @@ ipcMain.on("compressionComplete", () => {
 		success: true,
 		statusMessage: "Compression complete",
 	});
+});
+
+// -----------------------------------------------------------------------
+// START PLEX PROCESS
+// -----------------------------------------------------------------------
+
+ipcMain.on("startPlex", (event, path) => {
+	setTimeout(() => {
+		const startProcess = spawn(`${path}\\Plex Media Server.exe`, { detached: true, stdio: ["inherit"] });
+		if (startProcess.pid) {
+			mainWindow.send("startPlex", {
+				success: true,
+				statusMessage: "Plex Media Server started",
+			});
+		} else {
+			startProcess.on("error", (error) => {
+				mainWindow.send("startPlex", {
+					error: true,
+					errorMessage: "Could not start Plex Media Server",
+				});
+			});
+		}
+	}, 2000);
 });
 
 // -----------------------------------------------------------------------

@@ -7,6 +7,7 @@ import OutputPath from "./OutputPath";
 import RegKey from "./RegKey";
 import KillProcess from "./KillProcess";
 import CompressDirectory from "./CompressDirectory";
+import StartPlexProcess from "./StartPlexProcess";
 
 const { ipcRenderer } = require("electron");
 
@@ -17,6 +18,7 @@ function Home() {
 	const [regKey, setRegKey] = useState(false);
 	const [killProcess, setKillProcess] = useState(false);
 	const [compressionComplete, setCompressionComplete] = useState(false);
+	const [startPlex, setStartPlex] = useState(false);
 	const [backupRunning, setBackupRunning] = useState(false);
 
 	function startBackup() {
@@ -52,6 +54,10 @@ function Home() {
 		ipcRenderer.on("compressionComplete", (event, arg) => {
 			ipcRenderer.removeAllListeners("compressionComplete");
 			setCompressionComplete(arg.success);
+		});
+		ipcRenderer.on("startPlex", (event, arg) => {
+			ipcRenderer.removeAllListeners("startPlex");
+			setStartPlex(arg.success);
 			setBackupRunning(false);
 		});
 	});
@@ -89,7 +95,7 @@ function Home() {
 						{initBackup && <RegKey outputPath={outputPath} />}
 						{regKey && <KillProcess />}
 						{killProcess && <CompressDirectory />}
-						{compressionComplete && <div>New module</div>}
+						{compressionComplete && <StartPlexProcess />}
 					</section>
 				)}
 			</div>

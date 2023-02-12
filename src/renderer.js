@@ -56,6 +56,12 @@ function killPlexProcess() {
 	ipcRenderer.send("killPlexProcess");
 }
 
+// Handle starting plex process
+function startPlex(path) {
+	ipcRenderer.send("startPlex", path);
+}
+
+// Handle compression to rar
 function compressToRar() {
 	ipcRenderer.send("compressToRar");
 }
@@ -77,4 +83,5 @@ module.exports = {
 	killPlexProcess,
 	compressToRar,
 	compressionComplete,
+	startPlex,
 };
