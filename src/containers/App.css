@@ -52,6 +52,7 @@ button:hover,
 a {
 	text-decoration: none;
 	padding-bottom: var(--p);
+	color: var(--black);
 }
 
 a:hover {
