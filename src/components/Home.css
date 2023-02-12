@@ -2,5 +2,9 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 32px;
+	margin-top: calc(var(--base) * 3);
+}
+
+.backup .buttonGroup {
+	height: 60px;
 }
