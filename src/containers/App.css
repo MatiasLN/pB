@@ -1,9 +1,12 @@
 :root {
-	--green: #1b998b;
+	--green: #00c886;
 	--white: #ffffff;
 	--red: #c42f2f;
 	--black: #000000;
-	--background: #f7bb90;
+	--orange: #ff8a5f;
+	--background: #fdf6ed;
+	--primary: #ff8a5f;
+	--secondary: #fdbb9b;
 	--m: 8px;
 	--p: 8px;
 	--base: 8px;
@@ -24,6 +27,7 @@ body {
 	font-family: "Montserrat";
 	font-weight: 300;
 	color: var(--black);
+	background: var(--background);
 }
 
 button,
@@ -34,8 +38,8 @@ button,
 	text-decoration: none;
 	background: transparent;
 	outline: none;
-	color: var(--green);
-	border: 2px solid var(--green);
+	color: var(--primary);
+	border: 2px solid var(--primary);
 	cursor: pointer;
 	text-align: center;
 	transition: 250ms ease-in-out, transform 150ms ease;
@@ -44,9 +48,9 @@ button,
 
 button:hover,
 .button:hover {
-	background: var(--green);
+	background: var(--primary);
 	color: var(--white);
-	border: 2px solid var(--green);
+	border: 2px solid var(--primary);
 }
 
 a {
@@ -76,7 +80,7 @@ a:hover {
 	width: 75px;
 	height: 75px;
 	border-radius: 50%;
-	background-color: bisque;
+	background-color: var(--secondary);
 	margin-right: var(--m);
 	display: flex;
 	align-items: center;
@@ -89,4 +93,8 @@ a:hover {
 
 .block .success {
 	background-color: var(--green);
+}
+
+.icon-checkmark {
+	fill: var(--orange);
 }
