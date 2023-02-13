@@ -9,6 +9,7 @@ const { spawn } = window.require("child_process");
 function CompressDirectory() {
 	const [statusMsg, setStatusMsg] = useState("Initiating compression ...");
 	const [complete, setComplete] = useState(false);
+	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState(null);
 	const [errorMsg, setErrorMsg] = useState(null);
 	const [percentage, setPercentage] = useState(null);
@@ -23,7 +24,7 @@ function CompressDirectory() {
 	useEffect(() => {
 		ipcRenderer.on("compressToRar", (event, arg) => {
 			ipcRenderer.removeAllListeners("compressToRar");
-			setComplete(arg.success);
+			setSuccess(arg.success);
 			setStatusMsg(arg.statusMessage);
 			setRarPath(arg.rarPath);
 		});
@@ -82,7 +83,7 @@ function CompressDirectory() {
 				</div>
 			)}
 
-			{complete && (
+			{success && (
 				<div className="block">
 					<div className={complete ? "image success" : "image"}></div>
 					<div className="status">{statusMsg}</div>
