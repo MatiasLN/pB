@@ -1,6 +1,6 @@
 {
 	"name": "pb",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A GUI program for backing up a Plex server",
 	"author": "Matias Lie-Nielsen",
 	"license": "MIT",
