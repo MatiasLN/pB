@@ -4,6 +4,8 @@ import { compressToRar, compressionComplete } from "../renderer";
 const { ipcRenderer } = require("electron");
 const { spawn } = window.require("child_process");
 
+// TODO: Figure out how tf to move this logic to main with piping of data percentage intact
+
 function CompressDirectory() {
 	const [statusMsg, setStatusMsg] = useState("Initiating compression ...");
 	const [complete, setComplete] = useState(false);
@@ -42,43 +44,51 @@ function CompressDirectory() {
 				{ cwd: rarPath }
 			);
 
-			rarFiles.stdout.on("data", function (data) {
-				if (data) {
-					setStatusMsg("Compressing files to RAR");
-				} else {
+			if (rarFiles.pid) {
+				rarFiles.stdout.on("data", function (data) {
+					if (data) {
+						setStatusMsg("Compressing files to RAR");
+					} else {
+						setError(true);
+						setErrorMsg("An unknown error occured");
+					}
+					if (
+						data.includes("%") &&
+						!data.includes("Adding") &&
+						!data.includes("OK") &&
+						!data.includes("Updating")
+					) {
+						let percentage = data.toString().replace(/[^a-z0-9 ,.?!]/gi, "");
+						setPercentage(percentage);
+					}
+					rarFiles.on("close", function (code) {
+						console.log("child process exited with code " + code);
+						setPercentage("100");
+						compressionComplete();
+					});
+				});
+			} else {
+				rarFiles.on("error", function (err) {
 					setError(true);
-					setErrorMsg("An unknown error occured");
-				}
-				if (
-					data.includes("%") &&
-					!data.includes("Adding") &&
-					!data.includes("OK") &&
-					!data.includes("Updating")
-				) {
-					let percentage = data.toString().replace(/[^a-z0-9 ,.?!]/gi, "");
-					setPercentage(percentage);
-				}
-			});
-
-			rarFiles.on("close", function (code) {
-				console.log("child process exited with code " + code);
-				setPercentage("100");
-				compressionComplete();
-			});
+					setStatusMsg(null);
+					setComplete(false);
+					setErrorMsg("Something went wrong " + err);
+				});
+			}
 		}
 	}, [rarPath]);
 
 	return (
 		<>
 			{error && (
-				<div className="block error">
-					<div className="image"></div>
+				<div className="block">
+					<div className="image error"></div>
 					<div className="errorMsg">{errorMsg}</div>
 					<div className="progressBar"></div>
 				</div>
 			)}
 
-			{statusMsg && (
+			{complete && (
 				<div className="block">
 					<div className={complete ? "image success" : "image"}>{percentage && percentage + "%"}</div>
 					<div className="status">{statusMsg}</div>
