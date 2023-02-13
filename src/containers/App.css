@@ -87,12 +87,16 @@ a:hover {
 	justify-content: center;
 }
 
-.error .image {
-	background-color: var(--red);
+.block .error {
+	background-color: transparent;
+	background-image: url("../assets/images/icon-error.svg");
+	border-radius: 0;
 }
 
 .block .success {
-	background-color: var(--green);
+	background-color: transparent;
+	background-image: url("../assets/images/icon-check.svg");
+	border-radius: 0;
 }
 
 .icon-checkmark {
