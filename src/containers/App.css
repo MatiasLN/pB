@@ -56,7 +56,7 @@ button:hover,
 a {
 	text-decoration: underline;
 	padding-bottom: var(--p);
-	color: var(--black);
+	color: var(--white);
 }
 
 a:hover {
