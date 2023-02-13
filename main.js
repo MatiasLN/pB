@@ -314,7 +314,7 @@ ipcMain.on("compressToRar", () => {
 	if (isDev) {
 		mainWindow.send("compressToRar", {
 			success: true,
-			rarPath: app.getAppPath() + "\\assets\\exe",
+			rarPath: app.getAppPath() + "\\src\\assets\\exe",
 			statusMessage: "Compressing files to RAR",
 		});
 	} else {
