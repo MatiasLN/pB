@@ -9,18 +9,7 @@ const { exec, spawn } = require("child_process");
 const { autoUpdater } = require("electron-updater");
 const ps = require("ps-man");
 
-const {
-	HANDLE_FETCH_DATA,
-	FETCH_DATA_FROM_STORAGE,
-	HANDLE_SAVE_DATA,
-	SAVE_DATA_IN_STORAGE,
-	REMOVE_DATA_FROM_STORAGE,
-	HANDLE_REMOVE_DATA,
-} = require("./src/utils/constants");
-const storage = require("electron-json-storage");
-
 let mainWindow;
-let itemsToStore;
 let isDev = false;
 // Removing 8 characters to remove "app.asar"
 let strippedPath = __dirname.substring(0, __dirname.length - 8);
@@ -105,81 +94,6 @@ app.on("activate", () => {
 	if (mainWindow === null) {
 		createWindow();
 	}
-});
-
-// -----------------------------------------------------------------------
-// HANDLE STORAGE
-// -----------------------------------------------------------------------
-
-// Receives a FETCH_DATA_FROM_STORAGE from renderer
-ipcMain.on(FETCH_DATA_FROM_STORAGE, (event, message) => {
-	console.log("Main received: FETCH_DATA_FROM_STORAGE with message:", message);
-	storage.get(message, (error, data) => {
-		// if the itemsToStore key does not yet exist in storage, data returns an empty object, so we will declare itemsToStore to be an empty array
-		itemsToStore = JSON.stringify(data) === "{}" ? [] : data;
-		if (error) {
-			mainWindow.send(HANDLE_FETCH_DATA, {
-				success: false,
-				message: "itemsToStore not returned",
-			});
-		} else {
-			// Send message back to window
-			mainWindow.send(HANDLE_FETCH_DATA, {
-				success: true,
-				message: itemsToStore, // do something with the data
-			});
-		}
-	});
-});
-
-// Receive a SAVE_DATA_IN_STORAGE call from renderer
-ipcMain.on(SAVE_DATA_IN_STORAGE, (event, message) => {
-	console.log("Main received: SAVE_DATA_IN_STORAGE");
-
-	// update the itemsToStore array.
-	itemsToStore.push(message);
-
-	// Save itemsToStore to storage
-	storage.set("itemsToStore", itemsToStore, (error) => {
-		if (error) {
-			console.log("We errored! What was data?");
-			mainWindow.send(HANDLE_SAVE_DATA, {
-				success: false,
-				message: "items not saved",
-			});
-		} else {
-			// Send message back to window as 2nd arg "data"
-			mainWindow.send(HANDLE_SAVE_DATA, {
-				success: true,
-				message: message,
-			});
-		}
-	});
-});
-
-// Receive a REMOVE_DATA_FROM_STORAGE call from renderer
-ipcMain.on(REMOVE_DATA_FROM_STORAGE, (event, message) => {
-	console.log("Main Received: REMOVE_DATA_FROM_STORAGE");
-	// Update the items to Track array.
-	itemsToStore = itemsToStore.filter(function (el) {
-		return el.showName !== message.showName;
-	});
-	// Save itemsToStore to storage
-	storage.set("itemsToStore", itemsToStore, (error) => {
-		if (error) {
-			console.log("We errored! What was data?");
-			mainWindow.send(HANDLE_REMOVE_DATA, {
-				success: false,
-				message: "itemsToStore not saved",
-			});
-		} else {
-			// Send new updated array to window as 2nd arg "data"
-			mainWindow.send(HANDLE_REMOVE_DATA, {
-				success: true,
-				message: itemsToStore,
-			});
-		}
-	});
 });
 
 // -----------------------------------------------------------------------
