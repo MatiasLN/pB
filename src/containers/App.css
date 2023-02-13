@@ -71,9 +71,10 @@ a:hover {
 
 .block {
 	display: grid;
-	grid-template-columns: 90px minmax(390px, 1fr);
+	grid-template-columns: 90px 40vw;
 	align-items: center;
 	margin-top: calc(var(--base) * 8);
+	flex-wrap: wrap;
 }
 
 .block .image {
@@ -91,12 +92,16 @@ a:hover {
 	background-color: transparent;
 	background-image: url("../assets/images/icon-error.svg");
 	border-radius: 0;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .block .success {
 	background-color: transparent;
 	background-image: url("../assets/images/icon-check.svg");
 	border-radius: 0;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .icon-checkmark {
