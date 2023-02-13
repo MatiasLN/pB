@@ -29,7 +29,7 @@
 		},
 		"win": {
 			"target": "nsis",
-			"icon": "",
+			"icon": "./src/assets/icon/icon.png",
 			"publish": {
 				"provider": "github",
 				"repo": "pB",

@@ -28,7 +28,7 @@ function createWindow() {
 			width: 1600,
 			height: 768,
 			show: false,
-			// icon: __dirname + "./assets/icon.png",
+			icon: __dirname + "/src/assets/icon/icon.png",
 			webPreferences: {
 				nodeIntegration: true,
 			},
