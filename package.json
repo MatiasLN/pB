@@ -42,7 +42,7 @@
 			"owner": "MatiasLN"
 		},
 		"extraResources": [
-			"assets/exe/*"
+			"src/assets/exe/*"
 		]
 	},
 	"dependencies": {
