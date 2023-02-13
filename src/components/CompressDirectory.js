@@ -46,12 +46,6 @@ function CompressDirectory() {
 
 			if (rarFiles.pid) {
 				rarFiles.stdout.on("data", function (data) {
-					if (data) {
-						setStatusMsg("Compressing files to RAR");
-					} else {
-						setError(true);
-						setErrorMsg("An unknown error occured");
-					}
 					if (
 						data.includes("%") &&
 						!data.includes("Adding") &&
@@ -60,10 +54,10 @@ function CompressDirectory() {
 					) {
 						let percentage = data.toString().replace(/[^a-z0-9 ,.?!]/gi, "");
 						setPercentage(percentage);
+						setStatusMsg(`Compressing files to RAR (${percentage} %)`);
 					}
 					rarFiles.on("close", function (code) {
 						console.log("child process exited with code " + code);
-						setPercentage("100");
 						compressionComplete();
 					});
 				});
@@ -90,7 +84,7 @@ function CompressDirectory() {
 
 			{complete && (
 				<div className="block">
-					<div className={complete ? "image success" : "image"}>{percentage && percentage + "%"}</div>
+					<div className={complete ? "image success" : "image"}></div>
 					<div className="status">{statusMsg}</div>
 					<div className="progressBar"></div>
 				</div>
