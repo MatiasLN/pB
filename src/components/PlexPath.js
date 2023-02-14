@@ -33,7 +33,7 @@ const PlexPath = () => {
 	};
 
 	useEffect(() => {
-		if (fs.existsSync(userHomePath + "/AppData/Local/Plex Media Server2")) {
+		if (fs.existsSync(userHomePath + "/AppData/Local/Plex Media Server")) {
 			setPath(userHomePath + "/AppData/Local/Plex Media Server");
 		}
 	}, []);
