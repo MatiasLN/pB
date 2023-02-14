@@ -4,7 +4,8 @@
 	--red: #c42f2f;
 	--black: #000000;
 	--orange: #ff8a5f;
-	--background: #222222;
+	--background-dark: #222222;
+	--background-light: #fdf6ed;
 	--primary: #ff8a5f;
 	--secondary: #fdbb9b;
 	--m: 8px;
@@ -26,8 +27,16 @@ body {
 	font-size: 20px;
 	font-family: "Montserrat";
 	font-weight: 300;
+}
+
+body.dark {
 	color: var(--white);
-	background: var(--background);
+	background: var(--background-dark);
+}
+
+.body.light {
+	color: var(--black);
+	background: var(--background-light);
 }
 
 button,
