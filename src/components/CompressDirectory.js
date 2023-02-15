@@ -57,10 +57,10 @@ function CompressDirectory() {
 						setPercentage(percentage);
 						setStatusMsg(`Compressing files to RAR (${percentage} %)`);
 					}
-					rarFiles.on("close", function (code) {
-						console.log("child process exited with code " + code);
-						compressionComplete();
-					});
+				});
+				rarFiles.on("close", function (code) {
+					console.log("child process exited with code " + code);
+					compressionComplete();
 				});
 			} else {
 				rarFiles.on("error", function (err) {
