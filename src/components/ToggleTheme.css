@@ -1,0 +1,13 @@
+svg .mooned {
+	transform: translate(-90px, 90px);
+}
+
+svg #overlay {
+	transition: all 1.2s ease-in-out;
+}
+
+#sunmoon {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
