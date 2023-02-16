@@ -8,7 +8,6 @@ import RegKey from "./RegKey";
 import KillProcess from "./KillProcess";
 import CompressDirectory from "./CompressDirectory";
 import StartPlexProcess from "./StartPlexProcess";
-import ToggleTheme from "./ToggleTheme";
 
 const { ipcRenderer } = require("electron");
 
@@ -75,7 +74,6 @@ function Home() {
 			<header>
 				<DisplayVersion />
 				<AutoUpdate />
-				<ToggleTheme />
 			</header>
 			<div className="container">
 				{!plexPath && <PlexPath />}

@@ -8,7 +8,6 @@ import "./components/Home.css";
 import "./components/AutoUpdate.css";
 import "./components/DisplayVersion.css";
 import "./components/PlexPath.css";
-import "./components/ToggleTheme.css";
 
 // Since we are using HtmlWebpackPlugin WITHOUT a template, we should create our own root node in the body element before rendering into it
 let root = document.createElement("div");
