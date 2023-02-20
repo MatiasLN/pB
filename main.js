@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------
 // IMPORTS AND DECLEARING OF VARIABLES
 // -----------------------------------------------------------------------
-const { app, ipcMain, BrowserWindow } = require("electron");
+const { app, ipcMain, BrowserWindow, Menu } = require("electron");
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
@@ -78,10 +78,36 @@ function createWindow() {
 		mainWindow = null;
 	});
 }
+
+// -----------------------------------------------------------------------
+// MENU
+// -----------------------------------------------------------------------
+
+const menu = [
+	{
+		label: "File",
+		submenu: [{ label: "Quit", click: () => app.quit() }],
+	},
+	{
+		label: "Settings",
+		click: () =>
+			mainWindow.send("settings", {
+				launchWindow: true,
+			}),
+	},
+	{
+		label: "About",
+	},
+];
+
 // -----------------------------------------------------------------------
 // APPLICATION BOOT UP AND DOWN
 // -----------------------------------------------------------------------
-app.on("ready", createWindow);
+app.on("ready", () => {
+	createWindow();
+	const mainMenu = Menu.buildFromTemplate(menu);
+	Menu.setApplicationMenu(mainMenu);
+});
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
@@ -93,6 +119,20 @@ app.on("window-all-closed", () => {
 app.on("activate", () => {
 	if (mainWindow === null) {
 		createWindow();
+	}
+});
+
+// -----------------------------------------------------------------------
+// SETTINGS WINDOW
+// -----------------------------------------------------------------------
+
+ipcMain.on("settings", (event, status) => {
+	console.log("Main recieved: settings");
+	console.log(status);
+	if (status === "close") {
+		mainWindow.send("settings", {
+			launchWindow: false,
+		});
 	}
 });
 

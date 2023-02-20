@@ -11,6 +11,11 @@ function appVersion() {
 	ipcRenderer.send("app_version");
 }
 
+// Handle Settings window
+function settings(status) {
+	ipcRenderer.send("settings", status);
+}
+
 // Handle Plex path
 function setPlexPath() {
 	ipcRenderer.send("plexPath");
@@ -62,4 +67,5 @@ module.exports = {
 	compressToRar,
 	compressionComplete,
 	startPlex,
+	settings,
 };
