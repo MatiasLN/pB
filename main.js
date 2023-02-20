@@ -90,22 +90,10 @@ const menu = [
 	},
 	{
 		label: "Settings",
-		submenu: [
-			{
-				label: "Plex Directory",
-				click: () =>
-					mainWindow.send("plexPath", {
-						changePlexPath: true,
-					}),
-			},
-			{
-				label: "Output Directory",
-				click: () =>
-					mainWindow.send("outputPath", {
-						changeOutputPath: true,
-					}),
-			},
-		],
+		click: () =>
+			mainWindow.send("settings", {
+				launchWindow: true,
+			}),
 	},
 	{
 		label: "About",
@@ -131,6 +119,20 @@ app.on("window-all-closed", () => {
 app.on("activate", () => {
 	if (mainWindow === null) {
 		createWindow();
+	}
+});
+
+// -----------------------------------------------------------------------
+// SETTINGS WINDOW
+// -----------------------------------------------------------------------
+
+ipcMain.on("settings", (event, status) => {
+	console.log("Main recieved: settings");
+	console.log(status);
+	if (status === "close") {
+		mainWindow.send("settings", {
+			launchWindow: false,
+		});
 	}
 });
 

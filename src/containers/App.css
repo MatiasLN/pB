@@ -21,6 +21,14 @@
 	box-sizing: border-box;
 }
 
+h4 {
+	margin: 0;
+}
+
+p {
+	margin: calc(var(--base) * 1) 0;
+}
+
 body {
 	margin: 0;
 	padding: 0;

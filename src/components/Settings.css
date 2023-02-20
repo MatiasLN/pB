@@ -1,0 +1,49 @@
+.settings {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	background-color: var(--white);
+}
+
+.closeWindow {
+	width: fit-content;
+	height: max-content;
+	padding: calc(var(--base) * 1) calc(var(--base) * 2);
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: var(--m);
+}
+
+.settings .plexPath {
+	background-color: var(--background-light);
+}
+
+.settings .plexPath,
+.settings .outputPath {
+	margin-top: 0;
+	align-items: flex-start;
+	padding: var(--p);
+	border-top: 8px solid var(--white);
+}
+
+.settings .buttonGroup {
+	margin-top: calc(var(--base) * 1);
+}
+
+.settings header {
+	display: flex;
+	justify-content: center;
+	height: 58px;
+	padding: var(--p);
+	align-items: center;
+	background-color: var(--white);
+}
+
+.settings header h3 {
+	margin: 0;
+	font-weight: 100;
+}
