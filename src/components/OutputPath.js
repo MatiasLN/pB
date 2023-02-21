@@ -27,7 +27,9 @@ function OutputPath() {
 			<h2>Select output directory</h2>
 			<p>This is where the backups will be stored</p>
 
-			<button onClick={handleCustomPath}>Select directory</button>
+			<div className="buttonGroup">
+				<button onClick={handleCustomPath}>Select directory</button>
+			</div>
 		</div>
 	);
 }

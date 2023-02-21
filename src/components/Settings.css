@@ -48,3 +48,11 @@
 	margin: 0;
 	font-weight: 100;
 }
+
+.settings h4 {
+	margin: 0;
+}
+
+.settings p {
+	margin: calc(var(--base) * 1) 0;
+}
