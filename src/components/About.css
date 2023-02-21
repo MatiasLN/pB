@@ -1,0 +1,61 @@
+.about {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	background-color: transparent;
+	z-index: 1;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, 0.5);
+	top: 0;
+}
+
+.about .container {
+	width: 300px;
+	height: auto;
+	background: var(--white);
+	padding: var(--p);
+	z-index: 2;
+	align-items: center;
+}
+
+.about .logo {
+	background-image: url("../assets/icon/icon.svg");
+	width: 75px;
+	height: 75px;
+}
+
+.about p {
+	margin: var(--m);
+}
+
+.about span {
+	font-size: 14px;
+}
+
+.about #version {
+	position: initial;
+	font-size: 14px;
+}
+
+.about .github {
+	font-size: 14px;
+	display: flex;
+	margin-top: var(--m);
+}
+
+.about .github-icon {
+	background-image: url("../assets/images/icon-github.svg");
+	width: 15px;
+	height: 15px;
+	background-size: cover;
+	margin-right: var(--m);
+}
+
+.about .closeWindow {
+	position: initial;
+	margin-top: calc(var(--base) * 6);
+}

@@ -16,6 +16,11 @@ function settings(status) {
 	ipcRenderer.send("settings", status);
 }
 
+// Handle About window
+function about(status) {
+	ipcRenderer.send("about", status);
+}
+
 // Handle Plex path
 function setPlexPath() {
 	ipcRenderer.send("plexPath");
@@ -68,4 +73,5 @@ module.exports = {
 	compressionComplete,
 	startPlex,
 	settings,
+	about,
 };

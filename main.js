@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------
 // IMPORTS AND DECLEARING OF VARIABLES
 // -----------------------------------------------------------------------
-const { app, ipcMain, BrowserWindow, Menu } = require("electron");
+const { app, ipcMain, shell, BrowserWindow, Menu } = require("electron");
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
@@ -106,6 +106,10 @@ const menu = isDev
 			},
 			{
 				label: "About",
+				click: () =>
+					mainWindow.send("about", {
+						launchWindow: true,
+					}),
 			},
 	  ]
 	: [
@@ -126,6 +130,10 @@ const menu = isDev
 			},
 			{
 				label: "About",
+				click: () =>
+					mainWindow.send("about", {
+						launchWindow: true,
+					}),
 			},
 	  ];
 
@@ -161,6 +169,23 @@ ipcMain.on("settings", (event, status) => {
 		mainWindow.send("settings", {
 			launchWindow: false,
 		});
+	}
+});
+
+// -----------------------------------------------------------------------
+// ABOUT WINDOW
+// -----------------------------------------------------------------------
+
+ipcMain.on("about", (event, status) => {
+	console.log("Main recieved: about");
+	if (status === "close") {
+		mainWindow.send("about", {
+			launchWindow: false,
+		});
+	}
+
+	if (status === "github") {
+		shell.openExternal("https://github.com/MatiasLN/pB");
 	}
 });
 

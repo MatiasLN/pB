@@ -9,6 +9,7 @@ import KillProcess from "./KillProcess";
 import CompressDirectory from "./CompressDirectory";
 import StartPlexProcess from "./StartPlexProcess";
 import Settings from "./Settings";
+import About from "./About";
 
 const { ipcRenderer } = require("electron");
 
@@ -77,6 +78,7 @@ function Home() {
 				<AutoUpdate />
 			</header>
 			<Settings />
+			<About />
 			<div className="container">
 				{!plexPath && <PlexPath />}
 				{plexPath && !outputPath && <OutputPath />}
