@@ -83,17 +83,17 @@ function Home() {
 
 				{plexPath && outputPath && (
 					<section className="backup">
-						<div className="buttonGroup">
-							{backupRunning ? (
-								<div>Backup is running</div>
-							) : compressionComplete ? (
-								<button onClick={() => newBackup() + localStorage.setItem("newBackup", true)}>
-									Start new backup
-								</button>
-							) : (
+						{backupRunning ? (
+							<div>Backup is running</div>
+						) : compressionComplete ? (
+							<button onClick={() => newBackup() + localStorage.setItem("newBackup", true)}>
+								Start new backup
+							</button>
+						) : (
+							<div className="backupGroup startBackup">
 								<button onClick={() => startBackup(true)}>Start backup</button>
-							)}
-						</div>
+							</div>
+						)}
 						{initBackup && <RegKey outputPath={outputPath} />}
 						{regKey && <KillProcess />}
 						{killProcess && <CompressDirectory />}

@@ -5,6 +5,27 @@
 	margin-top: calc(var(--base) * 3);
 }
 
-.backup .buttonGroup {
-	height: 60px;
+.backup .startBackup {
+	height: 500px;
+	background-image: url("../assets/images/blob2.svg");
+	width: 500px;
+	background-size: cover;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.startBackup button {
+	border: 2px solid var(--white);
+	color: var(--white);
+}
+
+.startBackup button:hover {
+	border: 2px solid var(--primary);
+	color: var(--primary);
+	background: transparent;
 }
