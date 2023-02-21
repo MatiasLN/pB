@@ -83,22 +83,43 @@ function createWindow() {
 // MENU
 // -----------------------------------------------------------------------
 
-const menu = [
-	{
-		label: "File",
-		submenu: [{ label: "Quit", click: () => app.quit() }],
-	},
-	{
-		label: "Settings",
-		click: () =>
-			mainWindow.send("settings", {
-				launchWindow: true,
-			}),
-	},
-	{
-		label: "About",
-	},
-];
+const menu = isDev
+	? [
+			{
+				label: "File",
+				submenu: [{ label: "Quit", click: () => app.quit() }],
+			},
+			{
+				label: "Settings",
+				click: () =>
+					mainWindow.send("settings", {
+						launchWindow: true,
+					}),
+			},
+			{
+				label: "View",
+				submenu: [{ role: "reload" }, { role: "forceReload" }, { role: "toggleDevTools" }],
+			},
+			{
+				label: "About",
+			},
+	  ]
+	: [
+			{
+				label: "File",
+				submenu: [{ label: "Quit", click: () => app.quit() }],
+			},
+			{
+				label: "Settings",
+				click: () =>
+					mainWindow.send("settings", {
+						launchWindow: true,
+					}),
+			},
+			{
+				label: "About",
+			},
+	  ];
 
 // -----------------------------------------------------------------------
 // APPLICATION BOOT UP AND DOWN
@@ -128,7 +149,6 @@ app.on("activate", () => {
 
 ipcMain.on("settings", (event, status) => {
 	console.log("Main recieved: settings");
-	console.log(status);
 	if (status === "close") {
 		mainWindow.send("settings", {
 			launchWindow: false,
