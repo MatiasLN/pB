@@ -73,7 +73,7 @@ button:hover,
 a {
 	text-decoration: underline;
 	padding-bottom: var(--p);
-	color: var(--white);
+	color: var(--black);
 }
 
 a:hover {
