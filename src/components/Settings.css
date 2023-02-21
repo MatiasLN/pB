@@ -16,7 +16,7 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	margin: var(--m);
+	margin-right: var(--m);
 }
 
 .settings .plexPath {
@@ -27,8 +27,7 @@
 .settings .outputPath {
 	margin-top: 0;
 	align-items: flex-start;
-	padding: var(--p);
-	border-top: 8px solid var(--white);
+	padding: calc(var(--base) * 3) var(--p);
 }
 
 .settings .buttonGroup {
