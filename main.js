@@ -101,6 +101,10 @@ const menu = isDev
 				submenu: [{ role: "reload" }, { role: "forceReload" }, { role: "toggleDevTools" }],
 			},
 			{
+				label: "Window",
+				submenu: [{ role: "minimize" }, { role: "zoom" }],
+			},
+			{
 				label: "About",
 			},
 	  ]
@@ -115,6 +119,10 @@ const menu = isDev
 					mainWindow.send("settings", {
 						launchWindow: true,
 					}),
+			},
+			{
+				label: "Window",
+				submenu: [{ role: "minimize" }, { role: "zoom" }],
 			},
 			{
 				label: "About",
