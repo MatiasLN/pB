@@ -16,6 +16,11 @@ function CompressDirectory() {
 	const [rarPath, setRarPath] = useState(null);
 	const plexPath = localStorage.getItem("plexPath");
 	const savePath = localStorage.getItem("outputPath");
+	const date = new Date().toLocaleDateString("nb-NB", {
+		month: "2-digit",
+		day: "2-digit",
+		year: "numeric",
+	});
 
 	useEffect(() => {
 		compressToRar();
@@ -41,7 +46,15 @@ function CompressDirectory() {
 		if (rarPath) {
 			let rarFiles = spawn(
 				"rar",
-				["a", `${savePath}\\plexBackup_${Date.now()}.rar`, `${plexPath}`, "-m0", "-idc", "-vn", "-x*\\Cache"],
+				[
+					"a",
+					`${savePath}\\${date}\\plexBackup_${Date.now()}.rar`,
+					`${plexPath}`,
+					"-m0",
+					"-idc",
+					"-vn",
+					"-x*\\Cache",
+				],
 				{ cwd: rarPath }
 			);
 

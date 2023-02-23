@@ -13,6 +13,11 @@ let mainWindow;
 let isDev = false;
 // Removing 8 characters to remove "app.asar"
 let strippedPath = __dirname.substring(0, __dirname.length - 8);
+const date = new Date().toLocaleDateString("nb-NB", {
+	month: "2-digit",
+	day: "2-digit",
+	year: "numeric",
+});
 
 if (process.env.NODE_ENV !== undefined && process.env.NODE_ENV === "development") {
 	isDev = true;
@@ -224,7 +229,13 @@ ipcMain.on("startBackup", (event, initBackup) => {
 
 ipcMain.on("copyRegKey", (event, outputPath) => {
 	console.log("Main recieved: copyRegKey");
-	if (fs.existsSync(outputPath + "\\export.reg")) {
+
+	outputPath = outputPath + "\\" + date;
+	if (!fs.existsSync(outputPath)) {
+		fs.mkdirSync(outputPath);
+	}
+
+	if (fs.existsSync(outputPath + "\\regKey.reg")) {
 		setTimeout(() => {
 			mainWindow.send("copyRegKey", {
 				success: true,
@@ -233,7 +244,7 @@ ipcMain.on("copyRegKey", (event, outputPath) => {
 		}, 2000);
 	} else {
 		exec(
-			`REG EXPORT "HKEY_CURRENT_USER\\Software\\Plex, Inc.\\Plex Media Server" ${outputPath}\\export.reg`,
+			`REG EXPORT "HKEY_CURRENT_USER\\Software\\Plex, Inc.\\Plex Media Server" ${outputPath}\\regKey.reg`,
 			(error, stdout, stderr) => {
 				if (error) {
 					console.log(`error: ${error.message}`);
