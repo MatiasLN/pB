@@ -35,7 +35,8 @@ function createWindow() {
 			show: false,
 			icon: __dirname + "/src/assets/icon/icon.png",
 			webPreferences: {
-				nodeIntegration: true,
+				enableRemoteModule: true,
+				nodeIntegration: true
 			},
 		});
 	} else {
@@ -44,7 +45,8 @@ function createWindow() {
 			height: 768,
 			show: false,
 			webPreferences: {
-				nodeIntegration: true,
+				enableRemoteModule: true,
+				nodeIntegration: true
 			},
 		});
 	}
@@ -90,57 +92,57 @@ function createWindow() {
 
 const menu = isDev
 	? [
-			{
-				label: "File",
-				submenu: [{ label: "Quit", click: () => app.quit() }],
-			},
-			{
-				label: "Settings",
-				click: () =>
-					mainWindow.send("settings", {
-						launchWindow: true,
-					}),
-			},
-			{
-				label: "View",
-				submenu: [{ role: "reload" }, { role: "forceReload" }, { role: "toggleDevTools" }],
-			},
-			{
-				label: "Window",
-				submenu: [{ role: "minimize" }, { role: "zoom" }],
-			},
-			{
-				label: "About",
-				click: () =>
-					mainWindow.send("about", {
-						launchWindow: true,
-					}),
-			},
-	  ]
+		{
+			label: "File",
+			submenu: [{ label: "Quit", click: () => app.quit() }],
+		},
+		{
+			label: "Settings",
+			click: () =>
+				mainWindow.send("settings", {
+					launchWindow: true,
+				}),
+		},
+		{
+			label: "View",
+			submenu: [{ role: "reload" }, { role: "forceReload" }, { role: "toggleDevTools" }],
+		},
+		{
+			label: "Window",
+			submenu: [{ role: "minimize" }, { role: "zoom" }],
+		},
+		{
+			label: "About",
+			click: () =>
+				mainWindow.send("about", {
+					launchWindow: true,
+				}),
+		},
+	]
 	: [
-			{
-				label: "File",
-				submenu: [{ label: "Quit", click: () => app.quit() }],
-			},
-			{
-				label: "Settings",
-				click: () =>
-					mainWindow.send("settings", {
-						launchWindow: true,
-					}),
-			},
-			{
-				label: "Window",
-				submenu: [{ role: "minimize" }, { role: "zoom" }],
-			},
-			{
-				label: "About",
-				click: () =>
-					mainWindow.send("about", {
-						launchWindow: true,
-					}),
-			},
-	  ];
+		{
+			label: "File",
+			submenu: [{ label: "Quit", click: () => app.quit() }],
+		},
+		{
+			label: "Settings",
+			click: () =>
+				mainWindow.send("settings", {
+					launchWindow: true,
+				}),
+		},
+		{
+			label: "Window",
+			submenu: [{ role: "minimize" }, { role: "zoom" }],
+		},
+		{
+			label: "About",
+			click: () =>
+				mainWindow.send("about", {
+					launchWindow: true,
+				}),
+		},
+	];
 
 // -----------------------------------------------------------------------
 // APPLICATION BOOT UP AND DOWN
