@@ -1,6 +1,6 @@
 {
 	"name": "pb",
-	"version": "0.1.9",
+	"version": "0.1.12",
 	"description": "A GUI program for backing up a Plex server",
 	"author": "Matias Lie-Nielsen",
 	"license": "MIT",
@@ -28,18 +28,22 @@
 			"output": "build"
 		},
 		"win": {
-			"target": "nsis",
-			"icon": "./src/assets/icon/icon.png",
-			"publish": {
-				"provider": "github",
-				"repo": "pB",
-				"owner": "MatiasLN",
-				"releaseType": "release"
-			}
+			"target": [
+				{
+					"target": "nsis",
+					"arch": [
+						"x64",
+						"ia32"
+					]
+				}
+			],
+			"icon": "./src/assets/icon/icon.png"
 		},
 		"publish": {
 			"provider": "github",
-			"owner": "MatiasLN"
+			"repo": "pB",
+			"owner": "MatiasLN",
+			"releaseType": "release"
 		},
 		"extraResources": [
 			{
