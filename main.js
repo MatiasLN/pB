@@ -90,57 +90,57 @@ function createWindow() {
 
 const menu = isDev
 	? [
-			{
-				label: "File",
-				submenu: [{ label: "Quit", click: () => app.quit() }],
-			},
-			{
-				label: "Settings",
-				click: () =>
-					mainWindow.send("settings", {
-						launchWindow: true,
-					}),
-			},
-			{
-				label: "View",
-				submenu: [{ role: "reload" }, { role: "forceReload" }, { role: "toggleDevTools" }],
-			},
-			{
-				label: "Window",
-				submenu: [{ role: "minimize" }, { role: "zoom" }],
-			},
-			{
-				label: "About",
-				click: () =>
-					mainWindow.send("about", {
-						launchWindow: true,
-					}),
-			},
-	  ]
+		{
+			label: "File",
+			submenu: [{ label: "Quit", click: () => app.quit() }],
+		},
+		{
+			label: "Settings",
+			click: () =>
+				mainWindow.send("settings", {
+					launchWindow: true,
+				}),
+		},
+		{
+			label: "View",
+			submenu: [{ role: "reload" }, { role: "forceReload" }, { role: "toggleDevTools" }],
+		},
+		{
+			label: "Window",
+			submenu: [{ role: "minimize" }, { role: "zoom" }],
+		},
+		{
+			label: "About",
+			click: () =>
+				mainWindow.send("about", {
+					launchWindow: true,
+				}),
+		},
+	]
 	: [
-			{
-				label: "File",
-				submenu: [{ label: "Quit", click: () => app.quit() }],
-			},
-			{
-				label: "Settings",
-				click: () =>
-					mainWindow.send("settings", {
-						launchWindow: true,
-					}),
-			},
-			{
-				label: "Window",
-				submenu: [{ role: "minimize" }, { role: "zoom" }],
-			},
-			{
-				label: "About",
-				click: () =>
-					mainWindow.send("about", {
-						launchWindow: true,
-					}),
-			},
-	  ];
+		{
+			label: "File",
+			submenu: [{ label: "Quit", click: () => app.quit() }],
+		},
+		{
+			label: "Settings",
+			click: () =>
+				mainWindow.send("settings", {
+					launchWindow: true,
+				}),
+		},
+		{
+			label: "Window",
+			submenu: [{ role: "minimize" }, { role: "zoom" }],
+		},
+		{
+			label: "About",
+			click: () =>
+				mainWindow.send("about", {
+					launchWindow: true,
+				}),
+		},
+	];
 
 // -----------------------------------------------------------------------
 // APPLICATION BOOT UP AND DOWN
@@ -244,7 +244,7 @@ ipcMain.on("copyRegKey", (event, outputPath) => {
 		}, 2000);
 	} else {
 		exec(
-			`REG EXPORT "HKEY_CURRENT_USER\\Software\\Plex, Inc.\\Plex Media Server" ${outputPath}\\regKey.reg`,
+			`REG EXPORT "HKEY_CURRENT_USER\\Software\\Plex, Inc.\\Plex Media Server" "${outputPath}\\regKey.reg"`,
 			(error, stdout, stderr) => {
 				if (error) {
 					console.log(`error: ${error.message}`);
