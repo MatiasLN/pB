@@ -11,7 +11,7 @@ export default function StartPlexProcess() {
 	const [statusMsg, setStatusMsg] = useState("Starting Plex Server");
 	const [errorMsg, setErrorMsg] = useState(null);
 	const [toggleBrowse, setToggleBrowse] = useState(false);
-	const plexInstallPath = "C:\\Program Files (x86)\\Plex\\Plex Media Server";
+	const plexInstallPath = "C:\\Program Files\\Plex\\Plex Media Server";
 
 	const handleCustomPath = () => {
 		dialog
