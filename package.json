@@ -19,7 +19,7 @@
 		"start": "cross-env NODE_ENV=development webpack-dev-server --hot --info false --host 0.0.0.0 --config=./webpack.dev.config.js --mode development",
 		"build": "cross-env NODE_ENV=production webpack --config webpack.build.config.js --mode production",
 		"dist": "yarn build && electron-builder build --win --publish never",
-		"deploy": "yarn build && electron-builder build --win --publish always"
+		"deploy": "node deploy.js"
 	},
 	"build": {
 		"appId": "com.pb",
